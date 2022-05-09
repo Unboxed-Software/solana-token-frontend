@@ -27,11 +27,11 @@ export const CreateMintForm: FC = () => {
     if (!connection || !publicKey) {
       return;
     }
-    const transaction = new web3.Transaction();
-    // const recipientPubKey = new web3.PublicKey(event.target.recipient.value);
 
     const mint = web3.Keypair.generate();
     const lamports = await getMinimumBalanceForRentExemptMint(connection);
+
+    const transaction = new web3.Transaction();
 
     transaction.add(
       web3.SystemProgram.createAccount({
