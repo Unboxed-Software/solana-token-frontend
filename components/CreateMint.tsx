@@ -9,13 +9,12 @@ import {
   createInitializeMintInstruction,
 } from "@solana/spl-token";
 
-import * as nacl from "tweetnacl";
-import * as bs58 from "bs58";
-
 export const CreateMintForm: FC = () => {
   const [txSig, setTxSig] = useState("");
+  const [mint, setMint] = useState("");
+
   const { connection } = useConnection();
-  const { wallet, publicKey, sendTransaction } = useWallet();
+  const { publicKey, sendTransaction } = useWallet();
   const link = () => {
     return txSig
       ? `https://explorer.solana.com/tx/${txSig}?cluster=devnet`
@@ -29,6 +28,7 @@ export const CreateMintForm: FC = () => {
     }
 
     const mint = web3.Keypair.generate();
+
     const lamports = await getMinimumBalanceForRentExemptMint(connection);
 
     const transaction = new web3.Transaction();
@@ -43,7 +43,7 @@ export const CreateMintForm: FC = () => {
       }),
       createInitializeMintInstruction(
         mint.publicKey,
-        2,
+        0,
         publicKey,
         publicKey,
         TOKEN_PROGRAM_ID
@@ -54,6 +54,7 @@ export const CreateMintForm: FC = () => {
       signers: [mint],
     }).then((sig) => {
       setTxSig(sig);
+      setMint(mint.publicKey.toString());
     });
   };
 
@@ -62,7 +63,7 @@ export const CreateMintForm: FC = () => {
       {publicKey ? (
         <form onSubmit={createMint} className={styles.form}>
           <button type="submit" className={styles.formButton}>
-            Send
+            Create Mint
           </button>
         </form>
       ) : (
@@ -70,6 +71,7 @@ export const CreateMintForm: FC = () => {
       )}
       {txSig ? (
         <div>
+          <p>Token Mint Address: {mint}</p>
           <p>View your transaction on </p>
           <a href={link()}>Solana Explorer</a>
         </div>
