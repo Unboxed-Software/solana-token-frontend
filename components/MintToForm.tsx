@@ -59,6 +59,7 @@ export const MintToForm: FC = () => {
 
   return (
     <div>
+      <br />
       {publicKey ? (
         <form onSubmit={mintTo} className={styles.form}>
           <label htmlFor="mint">Token Mint:</label>
@@ -69,7 +70,6 @@ export const MintToForm: FC = () => {
             placeholder="Enter Token Mint"
             required
           />
-          <br />
           <label htmlFor="recipient">Recipient:</label>
           <input
             id="recipient"
@@ -78,7 +78,6 @@ export const MintToForm: FC = () => {
             placeholder="Enter Recipient PublicKey"
             required
           />
-          <br />
           <label htmlFor="amount">Amount Tokens to Mint:</label>
           <input
             id="amount"

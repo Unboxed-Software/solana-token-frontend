@@ -58,6 +58,7 @@ export const CreateTokenAccountForm: FC = () => {
 
   return (
     <div>
+      <br />
       {publicKey ? (
         <form onSubmit={createTokenAccount} className={styles.form}>
           <label htmlFor="owner">Token Mint:</label>
@@ -68,7 +69,6 @@ export const CreateTokenAccountForm: FC = () => {
             placeholder="Enter Token Mint"
             required
           />
-          <br />
           <label htmlFor="owner">Token Account Owner:</label>
           <input
             id="owner"
@@ -77,7 +77,6 @@ export const CreateTokenAccountForm: FC = () => {
             placeholder="Enter Token Account Owner PublicKey"
             required
           />
-          <br />
           <button type="submit" className={styles.formButton}>
             Create Token Account
           </button>
