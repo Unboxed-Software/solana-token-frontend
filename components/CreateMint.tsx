@@ -50,7 +50,9 @@ export const CreateMintForm: FC = () => {
       )
     );
 
-    sendTransaction(transaction, connection).then((sig) => {
+    sendTransaction(transaction, connection, {
+      signers: [mint],
+    }).then((sig) => {
       setTxSig(sig);
     });
   };
