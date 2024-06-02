@@ -95,8 +95,8 @@ export const MintToForm: FC = () => {
       )}
       {txSig ? (
         <div>
-          <p>Token Balance: {balance} </p>
-          <p>View your transaction on </p>
+          <p className={styles.formText}>Token Balance: {balance} </p>
+          <p className={styles.formText}>View your transaction on </p>
           <a href={link()}>Solana Explorer</a>
         </div>
       ) : null}
