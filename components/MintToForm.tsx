@@ -97,7 +97,7 @@ export const MintToForm: FC = () => {
         <div>
           <p className={styles.formText}>Token Balance: {balance} </p>
           <p className={styles.formText}>View your transaction on </p>
-          <a href={link()}>Solana Explorer</a>
+          <a href={link()} target="_blank">Solana Explorer</a>
         </div>
       ) : null}
     </div>
