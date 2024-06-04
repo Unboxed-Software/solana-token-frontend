@@ -13,7 +13,7 @@ const Home: NextPage = (props) => {
     <div className={styles.App}>
       <Head>
         <title>Token Program</title>
-        <meta name="description" content="Token Program" />
+        <meta name="description" content="DruxAMB | Token Program" />
       </Head>
       <WalletContextProvider>
         <AppBar />

@@ -73,7 +73,7 @@ export const CreateMintForm: FC = () => {
         <div>
           <p>Token Mint Address: {mint}</p>
           <p>View your transaction on </p>
-          <a href={link()}>Solana Explorer</a>
+          <a href={link()} target="_blank">Solana Explorer</a>
         </div>
       ) : null}
     </div>

@@ -1,10 +1,9 @@
 .App {
   min-height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
-
-  text-align: left;
-  background-color: #282c34;
+  background-color: rgba(0, 0, 0, 0.952);
 }
 
 .AppHeader {
@@ -15,45 +14,74 @@
   align-items: center;
   justify-content: space-between;
   font-size: 50px;
+  font-weight: 900;
   color: white;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 0 20px;
   flex-wrap: wrap;
 }
 
+@media only screen and (max-width: 900px) {
+  .AppHeader {
+    font-size: 25px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .AppHeader {
+    font-size: 0px;
+    /* scale: 0.5; */
+  }
+}
+
 .AppBody {
-  height: 100%;
+  border: 3px solid #1a1f2e21;
+  border-radius: 0.5rem;
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.457);
+  max-width: max-content;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  font-size: calc(10px + 2vmin);
+  justify-content: center;
+  font-size: calc(5px + 2vmin);
   color: white;
-  padding-top: 50px;
+  margin: 2rem auto;
+  padding: 0.5rem;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-}
+  width: 28rem;
+} 
 
+.form {
+  font-size: 1rem;
+  font-weight: bold;
+}
 .input {
   background: #f2f2f2;
 }
 
 .formField {
-  margin: 10px 0 10px 0;
-  min-width: 500px;
+  border: 1px solid transparent;
+  border-radius: 0.4rem;
+  margin: 5px 0;
+  max-width: 100%;
   padding: 15px;
   font-size: 16px;
-  border: 0;
+  outline: none;
   font-family: "Roboto", sans-serif;
 }
 .formButton {
-  margin: 10px 0 10px 0;
+  margin: 10px 0;
   padding: 15px;
   font-size: 16px;
-  border: 0;
+  border: 1px solid transparent;
+  border-radius: 0.4rem;
   font-family: "Roboto", sans-serif;
+  background-color: #512DA8;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+} .formButton:hover {
+  background-color: #1A1F2E;
 }

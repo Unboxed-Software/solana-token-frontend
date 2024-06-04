@@ -88,7 +88,7 @@ export const CreateTokenAccountForm: FC = () => {
         <div>
           <p>Token Account Address: {tokenAccount}</p>
           <p>View your transaction on </p>
-          <a href={link()}>Solana Explorer</a>
+          <a href={link()} target="_blank">Solana Explorer</a>
         </div>
       ) : null}
     </div>
