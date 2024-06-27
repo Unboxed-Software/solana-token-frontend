@@ -1,6 +1,7 @@
+"use client";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import * as web3 from "@solana/web3.js";
-import { FC, useState } from "react";
+import { FC, FormEvent, useState } from "react";
 import styles from "../styles/Home.module.css";
 import {
   MINT_SIZE,
@@ -16,12 +17,10 @@ export const CreateMintForm: FC = () => {
   const { connection } = useConnection();
   const { publicKey, sendTransaction } = useWallet();
   const link = () => {
-    return txSig
-      ? `https://explorer.solana.com/tx/${txSig}?cluster=devnet`
-      : "";
+    return txSig ? `https://explorer.solana.com/tx/${txSig}?cluster=devnet` : "";
   };
 
-  const createMint = async (event) => {
+  const createMint = async (event: FormEvent) => {
     event.preventDefault();
     if (!connection || !publicKey) {
       return;
@@ -41,13 +40,7 @@ export const CreateMintForm: FC = () => {
         lamports,
         programId: TOKEN_PROGRAM_ID,
       }),
-      createInitializeMintInstruction(
-        mint.publicKey,
-        0,
-        publicKey,
-        publicKey,
-        TOKEN_PROGRAM_ID
-      )
+      createInitializeMintInstruction(mint.publicKey, 0, publicKey, publicKey, TOKEN_PROGRAM_ID)
     );
 
     sendTransaction(transaction, connection, {

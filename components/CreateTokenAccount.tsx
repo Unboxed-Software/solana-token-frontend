@@ -1,7 +1,8 @@
+"use client";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import * as web3 from "@solana/web3.js";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
-import { FC, useState } from "react";
+import { FC, FormEvent, useState } from "react";
 import styles from "../styles/Home.module.css";
 
 import {
@@ -17,12 +18,10 @@ export const CreateTokenAccountForm: FC = () => {
   const { connection } = useConnection();
   const { publicKey, sendTransaction } = useWallet();
   const link = () => {
-    return txSig
-      ? `https://explorer.solana.com/tx/${txSig}?cluster=devnet`
-      : "";
+    return txSig ? `https://explorer.solana.com/tx/${txSig}?cluster=devnet` : "";
   };
 
-  const createTokenAccount = async (event) => {
+  const createTokenAccount = async (event: any) => {
     event.preventDefault();
     if (!connection || !publicKey) {
       return;
@@ -62,13 +61,7 @@ export const CreateTokenAccountForm: FC = () => {
       {publicKey ? (
         <form onSubmit={createTokenAccount} className={styles.form}>
           <label htmlFor="owner">Token Mint:</label>
-          <input
-            id="mint"
-            type="text"
-            className={styles.formField}
-            placeholder="Enter Token Mint"
-            required
-          />
+          <input id="mint" type="text" className={styles.formField} placeholder="Enter Token Mint" required />
           <label htmlFor="owner">Token Account Owner:</label>
           <input
             id="owner"
