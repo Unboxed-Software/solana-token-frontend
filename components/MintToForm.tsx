@@ -1,3 +1,4 @@
+"use client";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import * as web3 from "@solana/web3.js";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
@@ -18,12 +19,10 @@ export const MintToForm: FC = () => {
   const { connection } = useConnection();
   const { publicKey, sendTransaction } = useWallet();
   const link = () => {
-    return txSig
-      ? `https://explorer.solana.com/tx/${txSig}?cluster=devnet`
-      : "";
+    return txSig ? `https://explorer.solana.com/tx/${txSig}?cluster=devnet` : "";
   };
 
-  const mintTo = async (event) => {
+  const mintTo = async (event: any) => {
     event.preventDefault();
     if (!connection || !publicKey) {
       return;
@@ -42,9 +41,7 @@ export const MintToForm: FC = () => {
       ASSOCIATED_TOKEN_PROGRAM_ID
     );
 
-    transaction.add(
-      createMintToInstruction(mintPubKey, associatedToken, publicKey, amount)
-    );
+    transaction.add(createMintToInstruction(mintPubKey, associatedToken, publicKey, amount));
 
     const signature = await sendTransaction(transaction, connection);
 
@@ -63,13 +60,7 @@ export const MintToForm: FC = () => {
       {publicKey ? (
         <form onSubmit={mintTo} className={styles.form}>
           <label htmlFor="mint">Token Mint:</label>
-          <input
-            id="mint"
-            type="text"
-            className={styles.formField}
-            placeholder="Enter Token Mint"
-            required
-          />
+          <input id="mint" type="text" className={styles.formField} placeholder="Enter Token Mint" required />
           <label htmlFor="recipient">Recipient:</label>
           <input
             id="recipient"
@@ -79,13 +70,7 @@ export const MintToForm: FC = () => {
             required
           />
           <label htmlFor="amount">Amount Tokens to Mint:</label>
-          <input
-            id="amount"
-            type="text"
-            className={styles.formField}
-            placeholder="e.g. 100"
-            required
-          />
+          <input id="amount" type="text" className={styles.formField} placeholder="e.g. 100" required />
           <button type="submit" className={styles.formButton}>
             Mint Tokens
           </button>

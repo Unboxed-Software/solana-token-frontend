@@ -8,7 +8,7 @@ import { CreateTokenAccountForm } from "../components/CreateTokenAccount";
 import { CreateMintForm } from "../components/CreateMint";
 import Head from "next/head";
 
-const Home: NextPage = (props) => {
+const Home: NextPage = () => {
   return (
     <div className={styles.App}>
       <Head>
