@@ -1,3 +1,5 @@
+"use client";
+
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import * as web3 from "@solana/web3.js";
 import { FC, useState } from "react";
@@ -21,7 +23,7 @@ export const CreateMintForm: FC = () => {
       : "";
   };
 
-  const createMint = async (event) => {
+  const createMint = async (event: any) => {
     event.preventDefault();
     if (!connection || !publicKey) {
       return;

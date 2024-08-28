@@ -1,3 +1,5 @@
+"use client";
+
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { FC, useEffect, useState } from "react";
@@ -12,7 +14,7 @@ export const BalanceDisplay: FC = () => {
       return;
     }
 
-    connection.getAccountInfo(publicKey).then((info) => {
+    connection.getAccountInfo(publicKey).then((info: any) => {
       setBalance(info.lamports);
     });
   }, [connection, publicKey]);
