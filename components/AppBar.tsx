@@ -13,7 +13,7 @@ const WalletMultiButtonDynamic = dynamic(
 export const AppBar: FC = () => {
   return (
     <div className={styles.AppHeader}>
-      <Image src="/solanaLogo.png" alt="solana" height={30} width={200} />
+      <Image src="/solanaLogo.png" alt="solana logo" height={30} width={200} />
 
       <span>Solana Token Mint</span>
       <WalletMultiButtonDynamic />
