@@ -1,19 +1,22 @@
+"use client";
+
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import * as web3 from "@solana/web3.js";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { FC, useState } from "react";
 import styles from "../styles/Home.module.css";
-
 import {
+  createMintToInstruction,
   getAssociatedTokenAddress,
   TOKEN_PROGRAM_ID,
   ASSOCIATED_TOKEN_PROGRAM_ID,
-  createAssociatedTokenAccountInstruction,
+  getAccount,
 } from "@solana/spl-token";
 
-export const CreateTokenAccountForm: FC = () => {
+export const MintToForm: FC = () => {
   const [txSig, setTxSig] = useState("");
   const [tokenAccount, setTokenAccount] = useState("");
+  const [balance, setBalance] = useState("");
   const { connection } = useConnection();
   const { publicKey, sendTransaction } = useWallet();
   const link = () => {
@@ -22,46 +25,21 @@ export const CreateTokenAccountForm: FC = () => {
       : "";
   };
 
-  const createTokenAccount = async (event) => {
+  const mintTo = async (event: any) => {
     event.preventDefault();
     if (!connection || !publicKey) {
       return;
     }
-    const transaction = new web3.Transaction();
-    const owner = new web3.PublicKey(event.target.owner.value);
-    const mint = new web3.PublicKey(event.target.mint.value);
 
-    const associatedToken = await getAssociatedTokenAddress(
-      mint,
-      owner,
-      false,
-      TOKEN_PROGRAM_ID,
-      ASSOCIATED_TOKEN_PROGRAM_ID
-    );
-
-    transaction.add(
-      createAssociatedTokenAccountInstruction(
-        publicKey,
-        associatedToken,
-        owner,
-        mint,
-        TOKEN_PROGRAM_ID,
-        ASSOCIATED_TOKEN_PROGRAM_ID
-      )
-    );
-
-    sendTransaction(transaction, connection).then((sig) => {
-      setTxSig(sig);
-      setTokenAccount(associatedToken.toString());
-    });
+    // BUILD AND SEND MINT TRANSACTION HERE
   };
 
   return (
     <div>
       <br />
       {publicKey ? (
-        <form onSubmit={createTokenAccount} className={styles.form}>
-          <label htmlFor="owner">Token Mint:</label>
+        <form onSubmit={mintTo} className={styles.form}>
+          <label htmlFor="mint">Token Mint:</label>
           <input
             id="mint"
             type="text"
@@ -69,16 +47,24 @@ export const CreateTokenAccountForm: FC = () => {
             placeholder="Enter Token Mint"
             required
           />
-          <label htmlFor="owner">Token Account Owner:</label>
+          <label htmlFor="recipient">Recipient:</label>
           <input
-            id="owner"
+            id="recipient"
             type="text"
             className={styles.formField}
-            placeholder="Enter Token Account Owner PublicKey"
+            placeholder="Enter Recipient PublicKey"
+            required
+          />
+          <label htmlFor="amount">Amount Tokens to Mint:</label>
+          <input
+            id="amount"
+            type="text"
+            className={styles.formField}
+            placeholder="e.g. 100"
             required
           />
           <button type="submit" className={styles.formButton}>
-            Create Token Account
+            Mint Tokens
           </button>
         </form>
       ) : (
@@ -86,7 +72,7 @@ export const CreateTokenAccountForm: FC = () => {
       )}
       {txSig ? (
         <div>
-          <p>Token Account Address: {tokenAccount}</p>
+          <p>Token Balance: {balance} </p>
           <p>View your transaction on </p>
           <a href={link()}>Solana Explorer</a>
         </div>

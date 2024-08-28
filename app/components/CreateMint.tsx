@@ -1,3 +1,5 @@
+"use client";
+
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import * as web3 from "@solana/web3.js";
 import { FC, useState } from "react";
@@ -21,41 +23,13 @@ export const CreateMintForm: FC = () => {
       : "";
   };
 
-  const createMint = async (event) => {
+  const createMint = async (event: any) => {
     event.preventDefault();
     if (!connection || !publicKey) {
       return;
     }
 
-    const mint = web3.Keypair.generate();
-
-    const lamports = await getMinimumBalanceForRentExemptMint(connection);
-
-    const transaction = new web3.Transaction();
-
-    transaction.add(
-      web3.SystemProgram.createAccount({
-        fromPubkey: publicKey,
-        newAccountPubkey: mint.publicKey,
-        space: MINT_SIZE,
-        lamports,
-        programId: TOKEN_PROGRAM_ID,
-      }),
-      createInitializeMintInstruction(
-        mint.publicKey,
-        0,
-        publicKey,
-        publicKey,
-        TOKEN_PROGRAM_ID
-      )
-    );
-
-    sendTransaction(transaction, connection, {
-      signers: [mint],
-    }).then((sig) => {
-      setTxSig(sig);
-      setMint(mint.publicKey.toString());
-    });
+    // BUILD AND SEND CREATE MINT TRANSACTION HERE
   };
 
   return (
