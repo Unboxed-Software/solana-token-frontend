@@ -1,6 +1,5 @@
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import * as web3 from "@solana/web3.js";
-import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { FC, useState } from "react";
 import styles from "../styles/Home.module.css";
 import {
