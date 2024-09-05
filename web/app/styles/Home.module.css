@@ -48,12 +48,25 @@
   padding: 15px;
   font-size: 16px;
   border: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
+  border-radius: 10px;
 }
 .formButton {
   margin: 10px 0 10px 0;
-  padding: 15px;
+  padding: 10px;
   font-size: 16px;
   border: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
+  background-color: #edeae0;
+  border-radius: 10px;
+  color: black;
+}
+
+.link {
+  color: #32de84;
+}
+
+.balance {
+  margin-left: 160px;
+  margin-bottom: 30px;
 }

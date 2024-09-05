@@ -1,59 +1,36 @@
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import * as web3 from "@solana/web3.js";
-import { LAMPORTS_PER_SOL } from "@solana/web3.js";
-import { FC, useState } from "react";
-import styles from "../styles/Home.module.css";
+'use client';
+
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import * as web3 from '@solana/web3.js';
+import { LAMPORTS_PER_SOL } from '@solana/web3.js';
+import { FC, useState } from 'react';
+import styles from '../../app/styles/Home.module.css';
 
 import {
   getAssociatedTokenAddress,
   TOKEN_PROGRAM_ID,
   ASSOCIATED_TOKEN_PROGRAM_ID,
   createAssociatedTokenAccountInstruction,
-} from "@solana/spl-token";
+} from '@solana/spl-token';
 
 export const CreateTokenAccountForm: FC = () => {
-  const [txSig, setTxSig] = useState("");
-  const [tokenAccount, setTokenAccount] = useState("");
+  const [txSig, setTxSig] = useState('');
+  const [tokenAccount, setTokenAccount] = useState('');
   const { connection } = useConnection();
   const { publicKey, sendTransaction } = useWallet();
   const link = () => {
     return txSig
       ? `https://explorer.solana.com/tx/${txSig}?cluster=devnet`
-      : "";
+      : '';
   };
 
-  const createTokenAccount = async (event) => {
+  const createTokenAccount = async (event: any) => {
     event.preventDefault();
     if (!connection || !publicKey) {
       return;
     }
-    const transaction = new web3.Transaction();
-    const owner = new web3.PublicKey(event.target.owner.value);
-    const mint = new web3.PublicKey(event.target.mint.value);
 
-    const associatedToken = await getAssociatedTokenAddress(
-      mint,
-      owner,
-      false,
-      TOKEN_PROGRAM_ID,
-      ASSOCIATED_TOKEN_PROGRAM_ID
-    );
-
-    transaction.add(
-      createAssociatedTokenAccountInstruction(
-        publicKey,
-        associatedToken,
-        owner,
-        mint,
-        TOKEN_PROGRAM_ID,
-        ASSOCIATED_TOKEN_PROGRAM_ID
-      )
-    );
-
-    sendTransaction(transaction, connection).then((sig) => {
-      setTxSig(sig);
-      setTokenAccount(associatedToken.toString());
-    });
+    // BUILD AND SEND CREATE TOKEN ACCOUNT TRANSACTION HERE
   };
 
   return (

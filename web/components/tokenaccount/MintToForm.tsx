@@ -1,60 +1,37 @@
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import * as web3 from "@solana/web3.js";
-import { LAMPORTS_PER_SOL } from "@solana/web3.js";
-import { FC, useState } from "react";
-import styles from "../styles/Home.module.css";
+'use client';
+
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import * as web3 from '@solana/web3.js';
+import { LAMPORTS_PER_SOL } from '@solana/web3.js';
+import { FC, useState } from 'react';
+import styles from '../../app/styles/Home.module.css';
 import {
   createMintToInstruction,
   getAssociatedTokenAddress,
   TOKEN_PROGRAM_ID,
   ASSOCIATED_TOKEN_PROGRAM_ID,
   getAccount,
-} from "@solana/spl-token";
+} from '@solana/spl-token';
 
 export const MintToForm: FC = () => {
-  const [txSig, setTxSig] = useState("");
-  const [tokenAccount, setTokenAccount] = useState("");
-  const [balance, setBalance] = useState("");
+  const [txSig, setTxSig] = useState('');
+  const [tokenAccount, setTokenAccount] = useState('');
+  const [balance, setBalance] = useState('');
   const { connection } = useConnection();
   const { publicKey, sendTransaction } = useWallet();
   const link = () => {
     return txSig
       ? `https://explorer.solana.com/tx/${txSig}?cluster=devnet`
-      : "";
+      : '';
   };
 
-  const mintTo = async (event) => {
+  const mintTo = async (event: any) => {
     event.preventDefault();
     if (!connection || !publicKey) {
       return;
     }
-    const transaction = new web3.Transaction();
 
-    const mintPubKey = new web3.PublicKey(event.target.mint.value);
-    const recipientPubKey = new web3.PublicKey(event.target.recipient.value);
-    const amount = event.target.amount.value;
-
-    const associatedToken = await getAssociatedTokenAddress(
-      mintPubKey,
-      recipientPubKey,
-      false,
-      TOKEN_PROGRAM_ID,
-      ASSOCIATED_TOKEN_PROGRAM_ID
-    );
-
-    transaction.add(
-      createMintToInstruction(mintPubKey, associatedToken, publicKey, amount)
-    );
-
-    const signature = await sendTransaction(transaction, connection);
-
-    await connection.confirmTransaction(signature, "confirmed");
-
-    setTxSig(signature);
-    setTokenAccount(associatedToken.toString());
-
-    const account = await getAccount(connection, associatedToken);
-    setBalance(account.amount.toString());
+    // BUILD AND SEND MINT TRANSACTION HERE
   };
 
   return (
