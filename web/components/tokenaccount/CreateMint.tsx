@@ -1,27 +1,29 @@
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import * as web3 from "@solana/web3.js";
-import { FC, useState } from "react";
-import styles from "../styles/Home.module.css";
+'use client';
+
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import * as web3 from '@solana/web3.js';
+import { FC, useState } from 'react';
+import styles from '../../app/styles/Home.module.css';
 import {
   MINT_SIZE,
   TOKEN_PROGRAM_ID,
   getMinimumBalanceForRentExemptMint,
   createInitializeMintInstruction,
-} from "@solana/spl-token";
+} from '@solana/spl-token';
 
 export const CreateMintForm: FC = () => {
-  const [txSig, setTxSig] = useState("");
-  const [mint, setMint] = useState("");
+  const [txSig, setTxSig] = useState('');
+  const [mint, setMint] = useState('');
 
   const { connection } = useConnection();
   const { publicKey, sendTransaction } = useWallet();
   const link = () => {
     return txSig
       ? `https://explorer.solana.com/tx/${txSig}?cluster=devnet`
-      : "";
+      : '';
   };
 
-  const createMint = async (event) => {
+  const createMint = async (event: any) => {
     event.preventDefault();
     if (!connection || !publicKey) {
       return;
@@ -73,7 +75,9 @@ export const CreateMintForm: FC = () => {
         <div>
           <p>Token Mint Address: {mint}</p>
           <p>View your transaction on </p>
-          <a href={link()}>Solana Explorer</a>
+          <a className={styles.link} href={link()}>
+            Solana Explorer
+          </a>
         </div>
       ) : null}
     </div>
