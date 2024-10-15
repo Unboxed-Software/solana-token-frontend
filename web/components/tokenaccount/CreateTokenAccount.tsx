@@ -2,6 +2,7 @@
 
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import * as web3 from '@solana/web3.js';
+import { LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { FC, useState } from 'react';
 import styles from '../../app/styles/Home.module.css';
 
@@ -28,33 +29,8 @@ export const CreateTokenAccountForm: FC = () => {
     if (!connection || !publicKey) {
       return;
     }
-    const transaction = new web3.Transaction();
-    const owner = new web3.PublicKey(event.target.owner.value);
-    const mint = new web3.PublicKey(event.target.mint.value);
 
-    const associatedToken = await getAssociatedTokenAddress(
-      mint,
-      owner,
-      false,
-      TOKEN_PROGRAM_ID,
-      ASSOCIATED_TOKEN_PROGRAM_ID
-    );
-
-    transaction.add(
-      createAssociatedTokenAccountInstruction(
-        publicKey,
-        associatedToken,
-        owner,
-        mint,
-        TOKEN_PROGRAM_ID,
-        ASSOCIATED_TOKEN_PROGRAM_ID
-      )
-    );
-
-    sendTransaction(transaction, connection).then((sig) => {
-      setTxSig(sig);
-      setTokenAccount(associatedToken.toString());
-    });
+    // BUILD AND SEND CREATE TOKEN ACCOUNT TRANSACTION HERE
   };
 
   return (
@@ -89,9 +65,7 @@ export const CreateTokenAccountForm: FC = () => {
         <div>
           <p>Token Account Address: {tokenAccount}</p>
           <p>View your transaction on </p>
-          <a className={styles.link} href={link()}>
-            Solana Explorer
-          </a>
+          <a href={link()}>Solana Explorer</a>
         </div>
       ) : null}
     </div>
